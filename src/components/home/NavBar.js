@@ -6,12 +6,18 @@ const { Header } = Layout;
 const NavBar = () => {
   return (
     <Header>
-      <Button type='link' ghost size='large'>
-        Film Browser
-      </Button>
-      <Button type='primary' size='large' style={{ float: 'right' }}>
-        Log In
-      </Button>
+      <div style={{ position: 'relative' }}>
+        <Button type='link' ghost size='large'>
+          Film Browser
+        </Button>
+        <Button
+          type='primary'
+          size='large'
+          style={{ float: 'right', marginTop: 10 }}
+        >
+          Log In
+        </Button>
+      </div>
     </Header>
   );
 };

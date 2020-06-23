@@ -1,7 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Carousel } from 'antd';
+import { Typography } from 'antd';
 import { fetchPopularMovies } from '../../actions';
+import { CarouselProvider, Slider, Slide } from 'pure-react-carousel';
+import 'pure-react-carousel/dist/react-carousel.es.css';
+
+const { Title } = Typography;
 
 class MovieCarousel extends React.Component {
   componentDidMount() {
@@ -9,36 +13,39 @@ class MovieCarousel extends React.Component {
   }
 
   getPosters = () => {
-    return this.props.popularMovies.slice(0, 5).map(movie => {
-      console.log(movie.title);
+    return this.props.popularMovies.slice(0, 5).map((movie, index) => {
+      const movieBackdrop = `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`;
+      console.log(index);
       return (
-        <div key={movie.id}>
-          <img
-            alt=''
-            src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
+        <Slide index={index} key={movie.id}>
+          <img alt='' src={movieBackdrop} style={{ width: '100%' }} />
+          <div
             style={{
-              objectFit: 'cover',
-              width: '100%'
+              position: 'absolute',
+              left: 8,
+              bottom: 16
             }}
-          />
-          <h3 style={{ position: 'absolute', bottom: 8, left: 16 }}>Movie1</h3>
-        </div>
+          >
+            <Title level={2} style={{ color: 'white' }}>
+              {movie.title}
+            </Title>
+          </div>
+        </Slide>
       );
     });
   };
 
   render() {
     return (
-      <Carousel
-        style={{
-          height: 700,
-          paddint: 20
-        }}
-        dotPosition={'bottom'}
-        autoplay
+      <CarouselProvider
+        naturalSlideWidth={100}
+        naturalSlideHeight={40}
+        totalSlides={5}
+        playDirection='forward'
+        isPlaying={true}
       >
-        {this.getPosters()}
-      </Carousel>
+        <Slider>{this.getPosters()}</Slider>
+      </CarouselProvider>
     );
   }
 }
