@@ -1,17 +1,35 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { searchMovie } from '../../actions';
+import { fetchPopularMovies } from '../../actions';
 import { Input } from 'antd';
 
 const { Search } = Input;
 
-const SearchBar = () => {
-  return (
-    <Search
-      placeholder='Search a movie...'
-      onSearch={value => console.log(value)}
-      enterButton
-      style={{ width: 600 }}
-    />
-  );
+class SearchBar extends React.Component {
+  searchMovie(term) {
+    this.props.searchMovie(term);
+  }
+
+  render() {
+    return (
+      <Search
+        placeholder='Search for a movie...'
+        onChange={e => this.searchMovie(e.target.value)}
+        style={{ width: 600 }}
+      />
+    );
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    popularMovies: Object.values(state.popularMovies),
+    movie: Object.values(state.search)
+  };
 };
 
-export default SearchBar;
+export default connect(
+  mapStateToProps,
+  { searchMovie, fetchPopularMovies }
+)(SearchBar);

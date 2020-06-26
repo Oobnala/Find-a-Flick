@@ -1,21 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Typography } from 'antd';
+import './Home.css';
 import { fetchPopularMovies } from '../../actions';
+import { Typography } from 'antd';
+
 import { CarouselProvider, Slider, Slide } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 
 const { Title } = Typography;
 
 class MovieCarousel extends React.Component {
-  componentDidMount() {
-    this.props.fetchPopularMovies();
-  }
-
   getPosters = () => {
     return this.props.popularMovies.slice(0, 5).map((movie, index) => {
       const movieBackdrop = `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`;
-      console.log(index);
       return (
         <Slide index={index} key={movie.id}>
           <img alt='' src={movieBackdrop} style={{ width: '100%' }} />
@@ -52,7 +49,7 @@ class MovieCarousel extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    popularMovies: Object.values(state.movies)
+    popularMovies: Object.values(state.popularMovies)
   };
 };
 
