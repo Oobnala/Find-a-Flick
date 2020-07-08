@@ -7,7 +7,7 @@ import MovieList from './MovieList';
 
 class HomePage extends React.Component {
   componentDidMount() {
-    this.props.fetchPopularMovies();
+    this.props.fetchPopularMovies(1);
   }
 
   render() {
@@ -32,7 +32,7 @@ class HomePage extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    popularMovies: Object.values(state.popularMovies)
+    popularMovies: Object.values(state.popular.popularMovies)
   };
 };
 

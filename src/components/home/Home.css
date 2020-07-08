@@ -12,3 +12,12 @@
   width: 240px;
   margin: 15px 15px 100px 15px;
 }
+
+.blank-poster {
+  background-color: grey;
+  height: 360px;
+}
+
+.poster {
+  height: 360px;
+}

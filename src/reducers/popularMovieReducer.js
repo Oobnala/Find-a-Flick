@@ -1,10 +1,19 @@
 import _ from 'lodash';
 import { FETCH_POPULAR_MOVIES } from '../actions/types';
 
-export default (state = {}, action) => {
+const INITIAL_STATE = {
+  totalPopResults: 0,
+  popularMovies: []
+};
+
+export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case FETCH_POPULAR_MOVIES:
-      return { ...state, ..._.mapKeys(action.payload, 'id') };
+      return {
+        ...state,
+        popularMovies: _.mapKeys(action.payload.popularMovies, 'id'),
+        totalPopResults: action.payload.totalResults
+      };
     default:
       return state;
   }

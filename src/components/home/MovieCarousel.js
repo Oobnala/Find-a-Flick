@@ -14,7 +14,7 @@ class MovieCarousel extends React.Component {
     return this.props.popularMovies.slice(0, 5).map((movie, index) => {
       const movieBackdrop = `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`;
       return (
-        <Slide index={index} key={movie.id}>
+        <Slide key={movie.id} index={index}>
           <img alt='' src={movieBackdrop} style={{ width: '100%' }} />
           <div
             style={{
@@ -49,7 +49,7 @@ class MovieCarousel extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    popularMovies: Object.values(state.popularMovies)
+    popularMovies: Object.values(state.popular.popularMovies)
   };
 };
 

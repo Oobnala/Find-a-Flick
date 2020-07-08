@@ -3,6 +3,6 @@ import popularMovieReducer from './popularMovieReducer';
 import searchMovieReducer from './searchMovieReducer';
 
 export default combineReducers({
-  popularMovies: popularMovieReducer,
+  popular: popularMovieReducer,
   search: searchMovieReducer
 });

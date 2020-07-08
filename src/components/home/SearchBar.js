@@ -1,14 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { searchMovie } from '../../actions';
-import { fetchPopularMovies } from '../../actions';
+import { searchMovie, fetchPopularMovies } from '../../actions';
 import { Input } from 'antd';
 
 const { Search } = Input;
 
 class SearchBar extends React.Component {
   searchMovie(term) {
-    this.props.searchMovie(term);
+    if (term === '') {
+      this.props.searchMovie(term, 0);
+      this.props.fetchPopularMovies(1);
+    } else {
+      this.props.searchMovie(term, 1);
+    }
   }
 
   render() {
@@ -24,7 +28,6 @@ class SearchBar extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    popularMovies: Object.values(state.popularMovies),
     movie: Object.values(state.search)
   };
 };
