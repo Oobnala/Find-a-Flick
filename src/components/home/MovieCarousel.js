@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import './Home.css';
 import { fetchPopularMovies } from '../../actions';
 import { Typography } from 'antd';
-
 import { CarouselProvider, Slider, Slide } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 
@@ -16,13 +15,7 @@ class MovieCarousel extends React.Component {
       return (
         <Slide key={movie.id} index={index}>
           <img alt='' src={movieBackdrop} style={{ width: '100%' }} />
-          <div
-            style={{
-              position: 'absolute',
-              left: 8,
-              bottom: 16
-            }}
-          >
+          <div className='carousel-movie-title-container'>
             <Title level={2} style={{ color: 'white' }}>
               {movie.title}
             </Title>

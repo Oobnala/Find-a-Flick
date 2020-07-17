@@ -4,10 +4,18 @@ import './Home.css';
 import { connect } from 'react-redux';
 import { fetchPopularMovies, searchMovie } from '../../actions';
 import { Card, Pagination } from 'antd';
+import { withRouter } from 'react-router-dom';
+import { getMovieDetails } from '../../actions';
 
 const { Meta } = Card;
 
 class MovieList extends React.Component {
+  toMovieDetails = movieId => {
+    this.props.getMovieDetails(movieId).then(() => {
+      this.props.history.push(`/listing/${this.props.movieId}`);
+    });
+  };
+
   getPoster = () => {
     if (_.isEmpty(this.props.popularMovies)) {
       return <div>Loading...</div>;
@@ -23,6 +31,7 @@ class MovieList extends React.Component {
       let poster = movie.poster_path;
       let title = movie.title;
       let rating = movie.vote_average;
+      let id = movie.id;
       if (movie.vote_count === 0) {
         rating = 'N/A';
       }
@@ -31,6 +40,7 @@ class MovieList extends React.Component {
           <Card
             key={index}
             hoverable
+            onClick={() => this.toMovieDetails(id)}
             cover={
               poster ? (
                 <img
@@ -60,20 +70,22 @@ class MovieList extends React.Component {
 
   render() {
     return (
-      <div className='container-flexbox-MovieList'>
-        {this.getPoster()}
-        <Pagination
-          defaultCurrent={1}
-          pageSize={20}
-          total={
-            this.props.totalSearchResults === 0
-              ? this.props.totalPopResults
-              : this.props.totalSearchResults
-          }
-          onChange={page => {
-            this.changePage(page);
-          }}
-        />
+      <div className='movie-list-root'>
+        <div className='container-flexbox-MovieList'>{this.getPoster()}</div>
+        <div className='pagination'>
+          <Pagination
+            defaultCurrent={1}
+            pageSize={20}
+            total={
+              this.props.totalSearchResults === 0
+                ? this.props.totalPopResults
+                : this.props.totalSearchResults
+            }
+            onChange={page => {
+              this.changePage(page);
+            }}
+          />
+        </div>
       </div>
     );
   }
@@ -85,11 +97,14 @@ const mapStateToProps = state => {
     movies: state.search.movies,
     term: state.search.term,
     totalPopResults: state.popular.totalPopResults,
-    totalSearchResults: state.search.totalSearchResults
+    totalSearchResults: state.search.totalSearchResults,
+    movieId: state.movie.movieId
   };
 };
 
-export default connect(
+MovieList = connect(
   mapStateToProps,
-  { fetchPopularMovies, searchMovie }
+  { fetchPopularMovies, searchMovie, getMovieDetails }
 )(MovieList);
+
+export default withRouter(MovieList);

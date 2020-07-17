@@ -1,5 +1,5 @@
 import tmdb from '../apis/tmdb';
-import { FETCH_POPULAR_MOVIES, SEARCH_MOVIE } from './types';
+import { FETCH_POPULAR_MOVIES, SEARCH_MOVIE, GET_MOVIE_DETAILS } from './types';
 const key = process.env.REACT_APP_TMDB_API_KEY;
 
 export const fetchPopularMovies = page => async dispatch => {
@@ -36,4 +36,23 @@ export const searchMovie = (term, page) => async dispatch => {
 
     dispatch({ type: SEARCH_MOVIE, payload: data });
   }
+};
+
+export const getMovieDetails = movieId => async dispatch => {
+  const movieDetailsResponse = await tmdb.get(
+    `movie/${movieId}?api_key=${key}&language=en-US`
+  );
+
+  const castDetailsResponse = await tmdb.get(
+    `movie/${movieId}/credits?api_key=${key}`
+  );
+
+  const data = {
+    movieId: movieId,
+    movieDetails: movieDetailsResponse.data,
+    castDetails: castDetailsResponse.data.cast
+  };
+  console.log(movieDetailsResponse.data);
+
+  dispatch({ type: GET_MOVIE_DETAILS, payload: data });
 };
