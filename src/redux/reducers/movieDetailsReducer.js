@@ -1,4 +1,4 @@
-import { GET_MOVIE_DETAILS } from '../actions/types';
+import { GET_MOVIE_DETAILS, CLEAR_MOVIE_DETAILS } from '../actions/types';
 
 const INITIAL_STATE = {
   movieId: 0,
@@ -15,6 +15,8 @@ export default (state = INITIAL_STATE, action) => {
         movieDetails: action.payload.movieDetails,
         castDetails: action.payload.castDetails
       };
+    case CLEAR_MOVIE_DETAILS:
+      return (state = INITIAL_STATE);
     default:
       return state;
   }

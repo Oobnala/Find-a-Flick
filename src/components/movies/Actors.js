@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Divider, Typography } from 'antd';
 import './Details.css';
-import { Card } from 'antd';
+import { Card, Button } from 'antd';
 
 const { Meta } = Card;
 
 const { Title } = Typography;
 
-const renderCast = cast => {
-  return cast.map((member, index) => {
+const renderCast = (cast, viewAll) => {
+  let viewTotal = 6;
+
+  if (viewAll) {
+    viewTotal = cast.length;
+  }
+
+  return cast.slice(0, viewTotal).map((member, index) => {
     return (
       <div key={index} className='actor-card'>
         <Card
@@ -35,12 +41,22 @@ const renderCast = cast => {
 };
 
 const Actors = ({ castDetails }) => {
+  const [viewAll, setViewAll] = useState(false);
   return (
     <div className='actors-container'>
       <Divider>
-        <Title style={{ margin: 0 }}>Actors</Title>
+        <Title style={{ margin: 0 }}>Cast</Title>
       </Divider>
-      <div className='container-actorlist'>{renderCast(castDetails)}</div>
+      <Button
+        type='primary'
+        style={{ float: 'right' }}
+        onClick={() => setViewAll(!viewAll)}
+      >
+        View All Actors
+      </Button>
+      <div className='container-actorlist'>
+        {renderCast(castDetails, viewAll)}
+      </div>
     </div>
   );
 };

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getMovieDetails } from '../../actions';
+import { getMovieDetails, clearMovieDetails } from '../../redux/actions';
 import Info from './Info';
 import Actors from './Actors';
-import { Typography } from 'antd';
-const { Text } = Typography;
+import Comments from './Comments';
 
 class MovieDetails extends Component {
   state = { dataLoaded: false };
@@ -18,26 +17,28 @@ class MovieDetails extends Component {
     });
   }
 
+  componentWillUnmount() {
+    this.props.clearMovieDetails();
+  }
+
   render() {
     return (
       <div className='movie-details-container'>
-        <img
-          alt=''
-          className='movie-backdrop'
-          src={
-            this.props.movieDetails.backdrop_path ? (
-              `https://image.tmdb.org/t/p/original/${this.props.movieDetails.backdrop_path}`
-            ) : (
-              <Text>Loading...</Text>
-            )
-          }
-        />
+        {this.props.movieDetails.backdrop_path && (
+          <img
+            alt=''
+            className='movie-backdrop'
+            src={`https://image.tmdb.org/t/p/original/${this.props.movieDetails.backdrop_path}`}
+          />
+        )}
+
         {this.state.dataLoaded && (
           <>
             <Info movieDetails={this.props.movieDetails} />
             <div>
               <Actors castDetails={this.props.castDetails} />
             </div>
+            <Comments />
           </>
         )}
       </div>
@@ -52,5 +53,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getMovieDetails }
+  { getMovieDetails, clearMovieDetails }
 )(MovieDetails);

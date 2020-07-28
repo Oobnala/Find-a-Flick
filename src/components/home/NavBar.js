@@ -1,15 +1,18 @@
 import React from 'react';
 import { Layout, Button } from 'antd';
+import { Link } from 'react-router-dom';
 
 const { Header } = Layout;
 
-const NavBar = () => {
+const NavBar = ({ history }) => {
   return (
     <Header>
       <div style={{ position: 'relative' }}>
-        <Button type='link' ghost size='large'>
-          Film Browser
-        </Button>
+        <Link to='/'>
+          <Button type='link' ghost size='large'>
+            Film Browser
+          </Button>
+        </Link>
         <Button
           type='primary'
           size='large'

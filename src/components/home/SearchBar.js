@@ -1,38 +1,39 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { searchMovie, fetchPopularMovies } from '../../actions';
+import { fetchMovies } from '../../redux/actions';
 import { Input } from 'antd';
 
 const { Search } = Input;
 
 class SearchBar extends React.Component {
-  searchMovie(term) {
-    if (term === '') {
-      this.props.searchMovie(term, 0);
-      this.props.fetchPopularMovies(1);
-    } else {
-      this.props.searchMovie(term, 1);
-    }
-  }
+  state = { term: '' };
+
+  searchMovie = e => {
+    e.preventDefault();
+    this.props.fetchMovies(this.state.term, 1);
+  };
 
   render() {
     return (
-      <Search
-        placeholder='Search for a movie...'
-        onChange={e => this.searchMovie(e.target.value)}
-        style={{ width: 600 }}
-      />
+      <form onSubmit={this.searchMovie}>
+        <Search
+          placeholder='Search for a movie...'
+          defaultValue={this.props.term}
+          onChange={e => this.setState({ term: e.target.value })}
+          style={{ width: 600 }}
+        />
+      </form>
     );
   }
 }
 
 const mapStateToProps = state => {
   return {
-    movie: Object.values(state.search)
+    term: state.movies.term
   };
 };
 
 export default connect(
   mapStateToProps,
-  { searchMovie, fetchPopularMovies }
+  { fetchMovies }
 )(SearchBar);

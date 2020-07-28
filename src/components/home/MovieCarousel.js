@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './Home.css';
-import { fetchPopularMovies } from '../../actions';
 import { Typography } from 'antd';
 import { CarouselProvider, Slider, Slide } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
@@ -10,7 +9,7 @@ const { Title } = Typography;
 
 class MovieCarousel extends React.Component {
   getPosters = () => {
-    return this.props.popularMovies.slice(0, 5).map((movie, index) => {
+    return this.props.carousel.map((movie, index) => {
       const movieBackdrop = `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`;
       return (
         <Slide key={movie.id} index={index}>
@@ -42,11 +41,9 @@ class MovieCarousel extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    popularMovies: Object.values(state.popular.popularMovies)
+    popularMovies: Object.values(state.movies.movies),
+    carousel: state.movies.carousel
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { fetchPopularMovies }
-)(MovieCarousel);
+export default connect(mapStateToProps)(MovieCarousel);

@@ -1,30 +1,41 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchPopularMovies } from '../../actions';
+import { fetchMovies, getCarouselBackdrops } from '../../redux/actions';
 import MovieCarousel from './MovieCarousel';
 import SearchBar from './SearchBar';
 import MovieList from './MovieList';
 
 class HomePage extends React.Component {
+  state = { isLoaded: false };
+
   componentDidMount() {
-    this.props.fetchPopularMovies(1);
+    this.props.getCarouselBackdrops();
+    this.props.fetchMovies(this.props.term, this.props.page).then(() => {
+      this.setState({
+        isLoaded: true
+      });
+    });
   }
 
   render() {
     return (
       <div style={{ backgroundColor: 'white' }}>
-        <MovieCarousel />
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginTop: 50
-          }}
-        >
-          <SearchBar />
-        </div>
-        <MovieList />
+        {this.state.isLoaded && (
+          <>
+            <MovieCarousel />
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginTop: 50
+              }}
+            >
+              <SearchBar />
+            </div>
+            <MovieList />
+          </>
+        )}
       </div>
     );
   }
@@ -32,11 +43,12 @@ class HomePage extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    popularMovies: Object.values(state.popular.popularMovies)
+    term: state.movies.term,
+    page: state.movies.page
   };
 };
 
 export default connect(
   mapStateToProps,
-  { fetchPopularMovies }
+  { fetchMovies, getCarouselBackdrops }
 )(HomePage);

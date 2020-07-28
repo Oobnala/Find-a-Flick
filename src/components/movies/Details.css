@@ -59,11 +59,12 @@
 .details-container {
   margin-bottom: 10px;
 }
+
+/* Actors */
+
 .actors-container {
   margin: 20px;
 }
-
-/* Actors */
 
 .container-actorlist {
   display: flex;
@@ -87,4 +88,10 @@
 
 .meta {
   height: 80px;
+}
+
+/* Comments */
+
+.comments-container {
+  margin: 20px;
 }
