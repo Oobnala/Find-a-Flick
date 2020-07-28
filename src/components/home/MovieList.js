@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
+import { isEmpty } from 'lodash';
 import './Home.css';
 import { connect } from 'react-redux';
 import { fetchPopularMovies, searchMovie } from '../../actions';
@@ -11,22 +11,20 @@ const { Meta } = Card;
 
 class MovieList extends React.Component {
   toMovieDetails = movieId => {
-    this.props.getMovieDetails(movieId).then(() => {
-      this.props.history.push(`/listing/${this.props.movieId}`);
-    });
+    this.props.history.push(`/listing/${movieId}`);
   };
 
   getPoster = () => {
-    if (_.isEmpty(this.props.popularMovies)) {
+    if (isEmpty(this.props.popularMovies)) {
       return <div>Loading...</div>;
     }
 
     let listedMovies = this.props.popularMovies;
-    if (!_.isEmpty(this.props.movies)) {
+    console.log(listedMovies);
+    if (!isEmpty(this.props.movies)) {
       listedMovies = this.props.movies;
     }
 
-    console.log(this.props.movies);
     return listedMovies.map((movie, index) => {
       let poster = movie.poster_path;
       let title = movie.title;
@@ -61,7 +59,7 @@ class MovieList extends React.Component {
   };
 
   changePage = page => {
-    if (!_.isEmpty(this.props.movies)) {
+    if (!isEmpty(this.props.movies)) {
       this.props.searchMovie(this.props.term, page);
     } else {
       this.props.fetchPopularMovies(page);

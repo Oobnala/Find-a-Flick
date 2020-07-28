@@ -11,7 +11,7 @@ export default (state = INITIAL_STATE, action) => {
     case FETCH_POPULAR_MOVIES:
       return {
         ...state,
-        popularMovies: _.mapKeys(action.payload.popularMovies, 'id'),
+        popularMovies: _.mapKeys(action.payload.popularMovies, 'popularity'),
         totalPopResults: action.payload.totalResults
       };
     default:
