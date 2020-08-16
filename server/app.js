@@ -6,6 +6,11 @@ require('dotenv/config');
 
 app.use(bodyParser.json());
 
+// Routes
+const userRoutes = require('./routes/user_routes');
+
+app.use('/user', userRoutes);
+
 app.get('/', (req, res) => {
   res.send('We are on home');
 });

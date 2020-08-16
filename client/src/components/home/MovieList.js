@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { fetchMovies } from '../../redux/actions';
 import { withRouter } from 'react-router-dom';
 import { Card, Pagination } from 'antd';
+import { StarOutlined, PlusCircleOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
 
@@ -45,6 +46,10 @@ class MovieList extends React.Component {
                 <div className='blank-movie-poster'>Poster Unavailable</div>
               )
             }
+            actions={[
+              <StarOutlined key='favorites' />,
+              <PlusCircleOutlined key='watchlist' />
+            ]}
           >
             <Meta title={title} description={`Rating: ${rating}`} />
           </Card>
@@ -59,9 +64,8 @@ class MovieList extends React.Component {
   };
 
   render() {
-    console.log('render');
     return (
-      <div className='movie-list-root'>
+      <div>
         <div className='container-flexbox-MovieList'>{this.getPoster()}</div>
         <div className='pagination'>
           <Pagination

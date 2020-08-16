@@ -9,6 +9,7 @@ import {
 const key = process.env.REACT_APP_TMDB_API_KEY;
 
 export const fetchMovies = (term, page) => async dispatch => {
+  console.log('fetchMovies action called');
   if (term === '') {
     const response = await tmdb.get(
       `movie/popular?api_key=${key}&language=en-US&page=${page}`
@@ -37,6 +38,7 @@ export const fetchMovies = (term, page) => async dispatch => {
 };
 
 export const getCarouselBackdrops = () => async dispatch => {
+  console.log('getCarouselBackdrops action called');
   const response = await tmdb.get(
     `movie/popular?api_key=${key}&language=en-US&page=${1}`
   );
@@ -48,6 +50,7 @@ export const getCarouselBackdrops = () => async dispatch => {
 };
 
 export const getMovieDetails = movieId => async dispatch => {
+  console.log('getMovieDetails action called');
   const movieDetailsResponse = await tmdb.get(
     `movie/${movieId}?api_key=${key}&language=en-US`
   );
@@ -65,5 +68,6 @@ export const getMovieDetails = movieId => async dispatch => {
 };
 
 export const clearMovieDetails = () => async dispatch => {
+  console.log('clearMovieDetails action called');
   dispatch({ type: CLEAR_MOVIE_DETAILS });
 };
