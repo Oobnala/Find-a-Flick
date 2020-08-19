@@ -9,7 +9,8 @@ module.exports = override(
     javascriptEnabled: true,
     modifyVars: {
       '@primary-color': '#1DA57A',
-      '@layout-header-padding': '0 20px'
+      '@layout-header-padding': '0 20px',
+      '@modal-header-bg': '#001529'
     }
   })
 );

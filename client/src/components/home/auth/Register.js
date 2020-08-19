@@ -11,7 +11,11 @@ class Register extends Component {
   render() {
     return (
       <div>
-        <RegisterForm onSubmit={this.onSubmit} />
+        <RegisterForm
+          onSubmit={this.onSubmit}
+          setRegisterSuccess={this.props.setRegisterSuccess}
+          setRegister={this.props.setRegister}
+        />
       </div>
     );
   }

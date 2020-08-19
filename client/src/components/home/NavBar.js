@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { signOut } from '../../redux/actions/userActions';
 import './Home.css';
 import { modal } from './Home.less';
 import Login from './auth/Login';
@@ -9,19 +11,20 @@ import { Link } from 'react-router-dom';
 const { Header } = Layout;
 const { Title } = Typography;
 
-const NavBar = ({ history }) => {
+const NavBar = ({ isLoggedIn, signOut }) => {
   const [visible, setVisible] = useState(false);
   const [displayRegister, setDisplayRegister] = useState(false);
+  const [registerSuccess, setRegisterSuccess] = useState(false);
 
   const renderTitle = () => {
     return (
       <div>
         {displayRegister ? (
-          <Title style={{ marginBottom: 0 }} level={2}>
-            Register for Find-a-Flick!
+          <Title style={{ marginBottom: 0, color: '#1DA57A' }} level={2}>
+            Register an Account
           </Title>
         ) : (
-          <Title style={{ marginBottom: 0 }} level={2}>
+          <Title style={{ marginBottom: 0, color: '#1DA57A' }} level={2}>
             Welcome back to Find-a-Flick!
           </Title>
         )}
@@ -42,14 +45,27 @@ const NavBar = ({ history }) => {
             Find-a-Flick
           </Button>
         </Link>
-        <Button
-          onClick={() => setVisible(!visible)}
-          type='primary'
-          size='large'
-          style={{ float: 'right', marginTop: 10 }}
-        >
-          Log In
-        </Button>
+        {isLoggedIn ? (
+          <Button
+            onClick={() => signOut()}
+            type='primary'
+            size='large'
+            ghost
+            style={{ float: 'right', marginTop: 10 }}
+          >
+            Sign Out
+          </Button>
+        ) : (
+          <Button
+            onClick={() => setVisible(!visible)}
+            type='primary'
+            size='large'
+            style={{ float: 'right', marginTop: 10 }}
+          >
+            Log In
+          </Button>
+        )}
+
         {displayRegister ? (
           <Modal
             className={modal}
@@ -59,7 +75,10 @@ const NavBar = ({ history }) => {
             footer={null}
             onCancel={handleCancel}
           >
-            <Register />
+            <Register
+              setRegisterSuccess={setRegisterSuccess}
+              setRegister={setDisplayRegister}
+            />
           </Modal>
         ) : (
           <Modal
@@ -70,7 +89,11 @@ const NavBar = ({ history }) => {
             footer={null}
             onCancel={handleCancel}
           >
-            <Login setRegister={setDisplayRegister} />
+            <Login
+              registerSuccess={registerSuccess}
+              setVisible={setVisible}
+              setRegister={setDisplayRegister}
+            />
           </Modal>
         )}
       </div>
@@ -78,4 +101,11 @@ const NavBar = ({ history }) => {
   );
 };
 
-export default NavBar;
+const mapStateToProps = state => ({
+  isLoggedIn: state.user.isLoggedIn
+});
+
+export default connect(
+  mapStateToProps,
+  { signOut }
+)(NavBar);

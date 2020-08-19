@@ -3,3 +3,6 @@ export const SEARCH_MOVIE = 'SEARCH_MOVIE';
 export const GET_MOVIE_DETAILS = 'GET_MOVIE_DETAILS';
 export const CLEAR_MOVIE_DETAILS = 'CLEAR_MOVIE_DETAILS';
 export const GET_CAROUSEL_BACKDROPS = 'GET_CAROUSEL_BACKDROPS';
+export const REGISTER = 'REGISTER';
+export const SIGN_OUT = 'SIGN_OUT';
+export const LOGIN = 'LOGIN';

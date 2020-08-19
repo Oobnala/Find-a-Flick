@@ -38,6 +38,8 @@ class RegisterForm extends Component {
 
   onSubmit = formProps => {
     this.props.onSubmit(formProps);
+    this.props.setRegister(false);
+    this.props.setRegisterSuccess(true);
   };
 
   onSubmitFailed = errorInfo => {

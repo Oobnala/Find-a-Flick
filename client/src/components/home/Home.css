@@ -3,6 +3,11 @@
   margin-bottom: 0px;
 }
 
+.auth-header {
+  background-color: #001529;
+  padding: 0px;
+}
+
 /* HomePage */
 .home-container {
   background-color: white;
