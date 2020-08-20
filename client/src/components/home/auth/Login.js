@@ -9,7 +9,7 @@ class Login extends Component {
   onSubmit = formProps => {
     this.props.login(formProps).then(() => {
       this.props.setVisible(false);
-      this.props.history.push(`/user/${this.props.userId}`);
+      this.props.history.push(`/profile`);
     });
   };
 
@@ -33,11 +33,9 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    userId: state.user.userId
-  };
-};
+const mapStateToProps = state => ({
+  userId: state.user.userId
+});
 
 export default connect(
   mapStateToProps,

@@ -32,7 +32,6 @@ exports.register = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-  console.log(req.body.email);
   const existUser = await User.find({
     email: req.body.email
   });
@@ -52,5 +51,34 @@ exports.login = async (req, res) => {
     });
   } else {
     res.send({ valid: false, message: 'User not found' });
+  }
+};
+
+exports.addToWatchlist = async (req, res) => {
+  try {
+    let user = await User.find({ _id: req.body.userId });
+
+    if (user.length === 1) {
+      user[0].watchlist.push({ movieId: req.body.movieId });
+      user[0].save();
+      res.send({ valid: true, message: 'movie added to watchlist' });
+    } else {
+      res.send({ valid: false, message: 'Could not find user' });
+    }
+  } catch (err) {
+    res.send({ valid: false, message: err });
+  }
+};
+
+exports.getWatchlist = async (req, res) => {
+  const user = await User.find({ _id: req.body.userId });
+  try {
+    if (user.length === 1) {
+      res.send({ valid: true, watchlist: user[0].watchlist });
+    } else {
+      res.send({ valid: false, message: 'Could not find user' });
+    }
+  } catch (err) {
+    res.send({ valid: false, message: err });
   }
 };

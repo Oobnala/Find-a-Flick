@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Typography, Tag } from 'antd';
 import './Details.css';
+import { addToWatchlist } from '../../redux/actions/userActions';
 import StarRatings from 'react-star-ratings';
 import { Button } from 'antd';
 const { Title, Text } = Typography;
@@ -41,7 +43,7 @@ const getLanguages = languages => {
   );
 };
 
-const Info = ({ movieDetails }) => {
+const Info = ({ movieDetails, addToWatchlist, isLoggedIn }) => {
   return (
     <div className='movie-info-container'>
       <div>
@@ -58,9 +60,16 @@ const Info = ({ movieDetails }) => {
         />
       </div>
       <div className='info-container'>
-        <Button type='primary' className='wishlist-button'>
-          Add to Wishlist
-        </Button>
+        {isLoggedIn && (
+          <Button
+            type='primary'
+            className='wishlist-button'
+            onClick={() => addToWatchlist(movieDetails.id)}
+          >
+            Add to Wishlist
+          </Button>
+        )}
+
         <Title style={{ margin: 0, color: 'white' }}>
           {movieDetails.title}
         </Title>
@@ -114,4 +123,11 @@ const Info = ({ movieDetails }) => {
   );
 };
 
-export default Info;
+const mapStateToProps = state => ({
+  isLoggedIn: state.user.isLoggedIn
+});
+
+export default connect(
+  mapStateToProps,
+  { addToWatchlist }
+)(Info);

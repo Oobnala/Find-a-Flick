@@ -2,25 +2,14 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const FavoritesSchema = new Schema({
-  movieId: {
-    type: String,
-    required: true
-  },
-  title: {
-    type: String,
-    required: true
-  }
-});
-
 const WatchlistSchema = new Schema({
   movieId: {
     type: String,
-    require: true
-  },
-  title: {
-    type: String,
     required: true
+  },
+  date: {
+    type: Date,
+    default: Date.now
   }
 });
 
@@ -41,7 +30,6 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  favorites: [FavoritesSchema],
   watchlist: [WatchlistSchema]
 });
 

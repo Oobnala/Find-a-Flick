@@ -6,3 +6,4 @@ export const GET_CAROUSEL_BACKDROPS = 'GET_CAROUSEL_BACKDROPS';
 export const REGISTER = 'REGISTER';
 export const SIGN_OUT = 'SIGN_OUT';
 export const LOGIN = 'LOGIN';
+export const LOAD_COOKIE = 'LOAD_COOKIE';

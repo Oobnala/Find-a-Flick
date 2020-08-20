@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signOut } from '../../redux/actions/userActions';
 import './Home.css';
-import { modal } from './Home.less';
 import Login from './auth/Login';
 import Register from './auth/Register';
-import { Layout, Button, Modal, Typography } from 'antd';
+import { Layout, Button, Modal, Typography, Menu } from 'antd';
 import { Link } from 'react-router-dom';
 
 const { Header } = Layout;
 const { Title } = Typography;
 
-const NavBar = ({ isLoggedIn, signOut }) => {
+const NavBar = ({ isLoggedIn, signOut, history }) => {
   const [visible, setVisible] = useState(false);
   const [displayRegister, setDisplayRegister] = useState(false);
   const [registerSuccess, setRegisterSuccess] = useState(false);
@@ -37,14 +37,38 @@ const NavBar = ({ isLoggedIn, signOut }) => {
     setDisplayRegister(false);
   };
 
+  const toProfile = () => {
+    history.push('/profile');
+  };
+
   return (
     <Header>
-      <div style={{ position: 'relative' }}>
-        <Link to='/'>
-          <Button type='link' size='large'>
-            Find-a-Flick
-          </Button>
-        </Link>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between'
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row'
+          }}
+        >
+          <Link to='/'>
+            <Button type='link' size='large'>
+              Find-a-Flick
+            </Button>
+          </Link>
+          {isLoggedIn && (
+            <Menu theme='dark' mode='horizontal'>
+              <Menu.Item onClick={() => toProfile()} key='1'>
+                My Profile
+              </Menu.Item>
+            </Menu>
+          )}
+        </div>
+
         {isLoggedIn ? (
           <Button
             onClick={() => signOut()}
@@ -60,7 +84,7 @@ const NavBar = ({ isLoggedIn, signOut }) => {
             onClick={() => setVisible(!visible)}
             type='primary'
             size='large'
-            style={{ float: 'right', marginTop: 10 }}
+            style={{ justifyContent: 'flex-end', marginTop: 10 }}
           >
             Log In
           </Button>
@@ -68,7 +92,6 @@ const NavBar = ({ isLoggedIn, signOut }) => {
 
         {displayRegister ? (
           <Modal
-            className={modal}
             title={renderTitle()}
             centered
             visible={visible}
@@ -82,7 +105,6 @@ const NavBar = ({ isLoggedIn, signOut }) => {
           </Modal>
         ) : (
           <Modal
-            className={modal}
             title={renderTitle()}
             centered
             visible={visible}
@@ -108,4 +130,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { signOut }
-)(NavBar);
+)(withRouter(NavBar));
