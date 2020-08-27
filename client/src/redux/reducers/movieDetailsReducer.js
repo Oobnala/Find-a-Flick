@@ -3,7 +3,9 @@ import { GET_MOVIE_DETAILS, CLEAR_MOVIE_DETAILS } from '../actions/types';
 const INITIAL_STATE = {
   movieId: 0,
   movieDetails: {},
-  castDetails: []
+  castDetails: [],
+  directors: [],
+  similarMovies: []
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -13,7 +15,9 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         movieId: action.payload.movieId,
         movieDetails: action.payload.movieDetails,
-        castDetails: action.payload.castDetails
+        castDetails: action.payload.castDetails,
+        directors: action.payload.directors,
+        similarMovies: action.payload.similarMovies
       };
     case CLEAR_MOVIE_DETAILS:
       return (state = INITIAL_STATE);

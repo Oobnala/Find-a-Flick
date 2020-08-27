@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { loadCookie } from './redux/actions/userActions';
 import ProtectedRoute from './ProtectedRoute';
 import NavBar from './components/home/NavBar';
@@ -19,9 +19,11 @@ class App extends React.Component {
         <BrowserRouter>
           <Layout className='layout'>
             <NavBar />
-            <Route path='/' exact component={HomePage} />
-            <Route path='/listing/:movieId' exact component={MovieDetails} />
-            <ProtectedRoute path='/profile' exact component={UserProfile} />
+            <Switch>
+              <Route path='/' exact component={HomePage} />
+              <Route path='/listing/:movieId' exact component={MovieDetails} />
+              <ProtectedRoute path='/profile' exact component={UserProfile} />
+            </Switch>
           </Layout>
         </BrowserRouter>
       </div>

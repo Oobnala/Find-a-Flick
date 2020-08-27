@@ -59,10 +59,20 @@ export const getMovieDetails = movieId => async dispatch => {
     `movie/${movieId}/credits?api_key=${key}`
   );
 
+  const similarMovies = await tmdb.get(
+    `movie/${movieId}/similar?api_key=${key}&language=en-US&page=1`
+  );
+
+  const directors = castDetailsResponse.data.crew
+    .filter(crew => crew.job === 'Director')
+    .map(director => director.name);
+
   const data = {
     movieId: movieId,
     movieDetails: movieDetailsResponse.data,
-    castDetails: castDetailsResponse.data.cast
+    castDetails: castDetailsResponse.data.cast,
+    similarMovies: similarMovies.data.results,
+    directors: directors
   };
   dispatch({ type: GET_MOVIE_DETAILS, payload: data });
 };

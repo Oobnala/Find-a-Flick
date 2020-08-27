@@ -1,0 +1,153 @@
+/* Multiple component styles */
+.spin-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 700px;
+  background-color: white;
+}
+
+/* Nav */
+.login-title {
+  margin-bottom: 0px;
+}
+
+.nav-title {
+  font-size: 25px;
+}
+
+.auth-header {
+  background-color: #001529;
+  padding: 0px;
+}
+
+.auth-modal {
+  .ant-modal-close {
+    color: #1da57a;
+  }
+}
+
+/* HomePage */
+.home-container {
+  background-color: whitesmoke;
+}
+
+.search-bar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+  width: 100%;
+}
+
+/* MovieList */
+
+.container-flexbox-MovieList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0px;
+}
+
+.movie-card-container {
+  height: 380px;
+  width: 260px;
+  margin: 15px 15px 150px 15px;
+}
+
+.movie-poster-container {
+  position: relative;
+}
+
+.movie-card-title {
+  word-wrap: break-word;
+}
+
+.movie-card {
+  .ant-card-cover > * {
+    display: flex;
+  }
+}
+
+.circle-rating {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: red;
+  color: white;
+  border-radius: 30%;
+  font-size: 16px;
+  top: 4px;
+  right: 4px;
+}
+
+.blank-movie-poster {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: lightgrey;
+  height: 380px;
+
+  .camera-icon {
+    font-size: 200px;
+    color: grey;
+  }
+
+  .no-image {
+    font-size: 40px;
+    color: grey;
+  }
+}
+
+.pagination {
+  margin: 45px;
+  text-align: center;
+}
+
+.poster {
+  height: 380px;
+  width: 100%;
+}
+
+.meta {
+  .ant-card-meta-title {
+    .ant-typography {
+      color: #1da57a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+/* MovieCarousel */
+
+.carousel-backdrop-container {
+  position: relative;
+  height: 520px;
+}
+
+.carousel-movie-title-container {
+  position: absolute;
+  left: 8px;
+  bottom: 16px;
+}
+
+@media (max-width: 700px) {
+  .movie-card-container {
+    height: 100px;
+    width: 150px;
+    margin: 15px 15px 280px 15px;
+  }
+
+  .poster {
+    height: 250px;
+  }
+}

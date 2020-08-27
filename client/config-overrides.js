@@ -10,7 +10,8 @@ module.exports = override(
     modifyVars: {
       '@primary-color': '#1DA57A',
       '@layout-header-padding': '0 20px',
-      '@modal-header-bg': '#001529'
+      '@modal-header-bg': '#001529',
+      '@card-background': '#001529'
     }
   })
 );

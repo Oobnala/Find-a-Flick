@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import './Home.css';
+import './Home.less';
 import { fetchMovies } from '../../redux/actions';
 import { Input } from 'antd';
 
@@ -16,13 +16,12 @@ class SearchBar extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.searchMovie}>
+      <form style={{ width: '60%' }} onSubmit={this.searchMovie}>
         <Search
           size='large'
           placeholder='Search for a movie...'
           defaultValue={this.props.term}
           onChange={e => this.setState({ term: e.target.value })}
-          style={{ width: 600 }}
         />
       </form>
     );

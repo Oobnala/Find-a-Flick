@@ -1,0 +1,232 @@
+/* Multiple component styles */
+.spin-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 700px;
+  background-color: white;
+}
+
+/* MovieDetails */
+.movie-details-container {
+  display: flex;
+  flex-direction: column;
+  background-color: whitesmoke;
+  position: relative;
+}
+
+/* Info */
+.movie-info-container {
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(0, 21, 41);
+  box-shadow: 3px 3px 2px grey;
+  margin: 20px;
+}
+
+.wishlist-button {
+  float: right;
+  margin-top: 10px;
+  margin-right: 10px;
+  background-color: #1da57a;
+}
+
+.movie-backdrop {
+  width: 100%;
+  height: 500px;
+  object-fit: contain;
+}
+
+.movie-poster {
+  width: 300px;
+  min-width: 200px;
+  min-height: 400px;
+  height: 450px;
+}
+
+.info-container {
+  margin-left: 20px;
+  min-width: 300px;
+}
+.genres {
+  font-size: 20px;
+}
+
+.info-text {
+  font-size: 20px;
+  color: white;
+}
+
+.rating-container {
+  margin-bottom: 10px;
+}
+
+.rating-value {
+  margin-left: 10px;
+  font-size: 20px;
+  color: white;
+}
+
+.details-container {
+  margin-bottom: 10px;
+}
+
+/* Actors */
+
+.actors-container {
+  margin: 20px;
+}
+
+.divider-container {
+  .ant-typography {
+    margin: 0px;
+    font-size: 40px;
+  }
+}
+
+.container-actorlist {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0px;
+}
+
+.actor-card {
+  height: 300px;
+  width: 180px;
+  margin: 50px 15px 100px 15px;
+}
+
+.blank-actor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: grey;
+  height: 270px;
+}
+
+.blank-icon {
+  font-size: 200px;
+}
+
+.title-container {
+  .ant-typography {
+    font-size: 16px;
+  }
+}
+
+.title {
+  word-wrap: break-word;
+  color: #1da57a;
+}
+
+.character-container {
+  .ant-typography {
+    font-size: 16px;
+  }
+}
+
+.character {
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.back-top {
+  .ant-back-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background-color: #1da57a;
+    right: 20px;
+  }
+}
+
+.up-button {
+  color: white;
+}
+
+.meta {
+  height: 80px;
+  .ant-card-meta-detail > div:not(:last-child) {
+    margin-bottom: 0px;
+  }
+}
+
+/* Recommendations */
+.similar-movies-container {
+  margin: 20px;
+}
+
+.list {
+  .ant-list-item {
+    align-items: flex-start;
+    background-color: rgb(0, 21, 41);
+    box-shadow: 3px 3px 2px lightgray;
+    padding: 0;
+    margin: 10px;
+  }
+  .ant-list-item-meta-title > a {
+    color: #1da57a;
+    margin-left: 10px;
+  }
+  .ant-list-item-meta-description {
+    color: white;
+    margin-left: 10px;
+  }
+}
+
+.list-poster {
+  width: 100px;
+  height: 150px;
+}
+
+@media (max-width: 700px) {
+  .movie-info-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 375px;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  .movie-poster {
+    width: 375px;
+    height: 500px;
+  }
+
+  .actor-card {
+    height: 250px;
+    width: 130px;
+    margin: 30px 15px 50px 15px;
+  }
+
+  .title-container {
+    .ant-typography {
+      font-size: 12px;
+    }
+  }
+
+  .character-container {
+    .ant-typography {
+      font-size: 12px;
+    }
+  }
+
+  .blank-actor {
+    height: 195px;
+  }
+
+  .blank-icon {
+    font-size: 150px;
+  }
+
+  .divider-container {
+    .ant-typography {
+      font-size: 30px;
+    }
+  }
+}

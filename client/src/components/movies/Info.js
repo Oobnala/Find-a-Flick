@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Typography, Tag } from 'antd';
-import './Details.css';
+import './Details.less';
 import { addToWatchlist } from '../../redux/actions/userActions';
 import StarRatings from 'react-star-ratings';
 import { Button } from 'antd';
@@ -43,7 +43,7 @@ const getLanguages = languages => {
   );
 };
 
-const Info = ({ movieDetails, addToWatchlist, isLoggedIn }) => {
+const Info = ({ movieDetails, addToWatchlist, isLoggedIn, directors }) => {
   return (
     <div className='movie-info-container'>
       <div>
@@ -94,6 +94,7 @@ const Info = ({ movieDetails, addToWatchlist, isLoggedIn }) => {
           <Title style={{ color: 'white', marginTop: 20 }} level={3}>
             Details
           </Title>
+          <Text className='info-text'>Director(s): {directors.join(', ')}</Text>
           <div>
             <Text className='info-text'>
               Available Languages: {getLanguages(movieDetails.spoken_languages)}

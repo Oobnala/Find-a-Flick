@@ -1,9 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import './Home.css';
-import { Typography } from 'antd';
-import { CarouselProvider, Slider, Slide } from 'pure-react-carousel';
-import 'pure-react-carousel/dist/react-carousel.es.css';
+import './Home.less';
+import { Typography, Carousel } from 'antd';
 
 const { Title } = Typography;
 
@@ -12,29 +10,23 @@ class MovieCarousel extends React.Component {
     return this.props.carousel.map((movie, index) => {
       const movieBackdrop = `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`;
       return (
-        <Slide key={movie.id} index={index}>
+        <div className='carousel-backdrop-container' key={index}>
           <img alt='' src={movieBackdrop} style={{ width: '100%' }} />
           <div className='carousel-movie-title-container'>
             <Title level={2} style={{ color: 'white' }}>
               {movie.title}
             </Title>
           </div>
-        </Slide>
+        </div>
       );
     });
   };
 
   render() {
     return (
-      <CarouselProvider
-        naturalSlideWidth={100}
-        naturalSlideHeight={40}
-        totalSlides={5}
-        playDirection='forward'
-        isPlaying={true}
-      >
-        <Slider>{this.getPosters()}</Slider>
-      </CarouselProvider>
+      <div>
+        <Carousel autoplay>{this.getPosters()}</Carousel>
+      </div>
     );
   }
 }

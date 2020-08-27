@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signOut } from '../../redux/actions/userActions';
-import './Home.css';
+import './Home.less';
 import Login from './auth/Login';
 import Register from './auth/Register';
 import { Layout, Button, Modal, Typography, Menu } from 'antd';
@@ -56,10 +56,17 @@ const NavBar = ({ isLoggedIn, signOut, history }) => {
           }}
         >
           <Link to='/'>
-            <Button type='link' size='large'>
+            <Button className='nav-title' type='link'>
               Find-a-Flick
             </Button>
           </Link>
+          {/* <div style={{ width: 70, height: 50 }}>
+            <img
+              alt=''
+              src='https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_1-5bdc75aaebeb75dc7ae79426ddd9be3b2be1e342510f8202baf6bffa71d7f5c4.svg'
+            />
+          </div> */}
+
           {isLoggedIn && (
             <Menu theme='dark' mode='horizontal'>
               <Menu.Item onClick={() => toProfile()} key='1'>
@@ -92,6 +99,7 @@ const NavBar = ({ isLoggedIn, signOut, history }) => {
 
         {displayRegister ? (
           <Modal
+            className='auth-modal'
             title={renderTitle()}
             centered
             visible={visible}
@@ -105,6 +113,7 @@ const NavBar = ({ isLoggedIn, signOut, history }) => {
           </Modal>
         ) : (
           <Modal
+            className='auth-modal'
             title={renderTitle()}
             centered
             visible={visible}
