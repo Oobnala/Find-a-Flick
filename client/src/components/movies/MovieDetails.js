@@ -38,14 +38,6 @@ class MovieDetails extends Component {
   render() {
     return (
       <div className='movie-details-container'>
-        {/* {this.props.movieDetails.backdrop_path && (
-          <img
-            alt=''
-            className='movie-backdrop'
-            src={`https://image.tmdb.org/t/p/original/${this.props.movieDetails.backdrop_path}`}
-          />
-        )} */}
-
         {this.state.dataLoaded ? (
           <div>
             <Info

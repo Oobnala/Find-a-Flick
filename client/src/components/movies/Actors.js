@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Divider, Typography } from 'antd';
 import './Details.less';
-import { Card, Button, BackTop } from 'antd';
+import { Card, Button, BackTop, Empty } from 'antd';
 import { DownOutlined, UserOutlined, UpOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
@@ -68,17 +68,27 @@ const Actors = ({ castDetails }) => {
         </Divider>
       </div>
 
-      <Button
-        type='primary'
-        style={{ float: 'right' }}
-        onClick={() => setViewAll(!viewAll)}
-      >
-        View All Actors
-        {viewAll ? <UpOutlined /> : <DownOutlined />}
-      </Button>
-      <div className='container-actorlist'>
-        {renderCast(castDetails, viewAll)}
-      </div>
+      {castDetails.length !== 0 ? (
+        <div className='cast-details'>
+          <div>
+            <Button
+              type='primary'
+              className='view-actors-button'
+              onClick={() => setViewAll(!viewAll)}
+            >
+              View All Actors
+              {viewAll ? <UpOutlined /> : <DownOutlined />}
+            </Button>
+          </div>
+          <div className='container-actorlist'>
+            {renderCast(castDetails, viewAll)}
+          </div>
+        </div>
+      ) : (
+        <div>
+          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+        </div>
+      )}
     </div>
   );
 };

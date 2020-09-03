@@ -4,7 +4,7 @@ import { Typography, Tag } from 'antd';
 import './Details.less';
 import { addToWatchlist } from '../../redux/actions/userActions';
 import StarRatings from 'react-star-ratings';
-import { Button } from 'antd';
+
 const { Title, Text } = Typography;
 
 const numberWithCommas = value => {
@@ -43,80 +43,86 @@ const getLanguages = languages => {
   );
 };
 
-const Info = ({ movieDetails, addToWatchlist, isLoggedIn, directors }) => {
+const Info = ({ movieDetails, directors }) => {
   return (
     <div className='movie-info-container'>
-      <div>
+      {movieDetails.backdrop_path && (
         <img
           alt=''
-          className='movie-poster'
-          src={
-            movieDetails.poster_path ? (
-              `https://image.tmdb.org/t/p/original/${movieDetails.poster_path}`
-            ) : (
-              <Text>Loading...</Text>
-            )
-          }
+          className='movie-backdrop'
+          src={`https://image.tmdb.org/t/p/original/${movieDetails.backdrop_path}`}
         />
-      </div>
-      <div className='info-container'>
-        {isLoggedIn && (
-          <Button
-            type='primary'
-            className='wishlist-button'
-            onClick={() => addToWatchlist(movieDetails.id)}
-          >
-            Add to Wishlist
-          </Button>
-        )}
-
-        <Title style={{ margin: 0, color: 'white' }}>
-          {movieDetails.title}
-        </Title>
+      )}
+      <div className='movie-details'>
         <div>
-          <Text className='info-text'>{movieDetails.runtime + ' mins | '}</Text>
-          {convertDate(movieDetails.release_date)}
-          {renderGenres(movieDetails.genres)}
+          {movieDetails.poster_path && (
+            <img
+              alt=''
+              className='movie-poster'
+              src={
+                movieDetails.poster_path ? (
+                  `https://image.tmdb.org/t/p/original/${movieDetails.poster_path}`
+                ) : (
+                  <Text>Loading...</Text>
+                )
+              }
+            />
+          )}
         </div>
-        <div className='rating-container'>
-          <StarRatings
-            style={{ marginRight: 10 }}
-            rating={movieDetails.vote_average}
-            numberOfStars={10}
-            starRatedColor='#1DA57A'
-            starDimension='20px'
-            starSpacing='5px'
-          />
-          <Text className='rating-value'>({movieDetails.vote_average})</Text>
-        </div>
-        <Text className='info-text'>{movieDetails.overview}</Text>
-        <div className='details-container'>
-          <Title style={{ color: 'white', marginTop: 20 }} level={3}>
-            Details
+        <div className='details-main-container'>
+          <Title style={{ margin: 0, color: 'white' }}>
+            {movieDetails.title}
           </Title>
-          <Text className='info-text'>Director(s): {directors.join(', ')}</Text>
           <div>
             <Text className='info-text'>
-              Available Languages: {getLanguages(movieDetails.spoken_languages)}
+              {movieDetails.runtime + ' mins | '}
             </Text>
+            {convertDate(movieDetails.release_date)}
+            {renderGenres(movieDetails.genres)}
           </div>
-          <div>
-            {movieDetails.revenue !== 0 ? (
-              <Text className='info-text'>
-                {'Revenue: $' + numberWithCommas(movieDetails.revenue)}
-              </Text>
-            ) : (
-              <Text className='info-text'>Revenue: N/A </Text>
-            )}
+          <div className='rating-container'>
+            <StarRatings
+              style={{ marginRight: 10 }}
+              rating={movieDetails.vote_average}
+              numberOfStars={10}
+              starRatedColor='#1DA57A'
+              starDimension='20px'
+              starSpacing='5px'
+            />
+            <Text className='rating-value'>({movieDetails.vote_average})</Text>
           </div>
-          <div>
-            {movieDetails.budget !== 0 ? (
+          <Text className='info-text'>{movieDetails.overview}</Text>
+          <div className='details-container'>
+            <Title style={{ color: 'white', marginTop: 20 }} level={3}>
+              Details
+            </Title>
+            <Text className='info-text'>
+              Director(s): {directors.join(', ')}
+            </Text>
+            <div>
               <Text className='info-text'>
-                {'Budget: $' + numberWithCommas(movieDetails.budget)}
+                Available Languages:{' '}
+                {getLanguages(movieDetails.spoken_languages)}
               </Text>
-            ) : (
-              <Text className='info-text'>Budget: N/A</Text>
-            )}
+            </div>
+            <div>
+              {movieDetails.revenue !== 0 ? (
+                <Text className='info-text'>
+                  {'Revenue: $' + numberWithCommas(movieDetails.revenue)}
+                </Text>
+              ) : (
+                <Text className='info-text'>Revenue: N/A </Text>
+              )}
+            </div>
+            <div>
+              {movieDetails.budget !== 0 ? (
+                <Text className='info-text'>
+                  {'Budget: $' + numberWithCommas(movieDetails.budget)}
+                </Text>
+              ) : (
+                <Text className='info-text'>Budget: N/A</Text>
+              )}
+            </div>
           </div>
         </div>
       </div>

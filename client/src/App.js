@@ -7,6 +7,7 @@ import NavBar from './components/home/NavBar';
 import HomePage from './components/home/HomePage';
 import MovieDetails from './components/movies/MovieDetails';
 import UserProfile from './components/user/UserProfile';
+import ScrollToTop from './ScrollToTop';
 import { Layout } from 'antd';
 
 class App extends React.Component {
@@ -17,6 +18,7 @@ class App extends React.Component {
     return (
       <div>
         <BrowserRouter>
+          <ScrollToTop />
           <Layout className='layout'>
             <NavBar />
             <Switch>
