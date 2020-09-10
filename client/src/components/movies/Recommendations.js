@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
 import './Details.less';
 import { List, Divider, Typography, Button } from 'antd';
+import { DownOutlined, UpOutlined } from '@ant-design/icons';
 
 const { Title, Text, Link } = Typography;
 
 const Recommendations = ({ similarMovies }) => {
-  const [movieCount, setMovieCount] = useState(5);
+  const [viewAll, setViewAll] = useState(false);
+
+  const setRecommendations = () => {
+    if (viewAll) {
+      return similarMovies.slice(0, similarMovies.length);
+    } else {
+      return similarMovies.slice(0, 5);
+    }
+  };
 
   const renderMovies = movie => {
     return (
@@ -38,22 +47,23 @@ const Recommendations = ({ similarMovies }) => {
           <Title>Recommendations</Title>
         </Divider>
       </div>
-      <div>
+      <div className='view-all-button-container'>
+        <Button
+          className='view-all-recommendations-button'
+          type='primary'
+          onClick={() => setViewAll(!viewAll)}
+        >
+          View All Recommendations
+          {viewAll ? <UpOutlined /> : <DownOutlined />}
+        </Button>
+      </div>
+      <div className='recommendation-list'>
         <List
           className='list'
           itemLayout='horizontal'
-          dataSource={similarMovies.splice(0, movieCount)}
+          dataSource={setRecommendations()}
           renderItem={movie => renderMovies(movie)}
         />
-      </div>
-      <div className='show-all-button-container'>
-        <Button
-          className='show-all'
-          type='primary'
-          onClick={() => setMovieCount(similarMovies.length)}
-        >
-          Show All
-        </Button>
       </div>
     </div>
   );

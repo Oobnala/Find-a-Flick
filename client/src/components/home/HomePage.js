@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import './Home.less';
 import { Spin, Space } from 'antd';
 import { fetchMovies, getCarouselBackdrops } from '../../redux/actions';
+import { loadWatchlist } from '../../redux/actions/userActions';
 import MovieCarousel from './MovieCarousel';
 import SearchBar from './SearchBar';
 import MovieList from './MovieList';
@@ -18,6 +19,9 @@ class HomePage extends React.Component {
         isLoaded: true
       });
     });
+    if (this.props.isLoggedIn) {
+      this.props.loadWatchlist();
+    }
   }
 
   render() {
@@ -46,11 +50,12 @@ class HomePage extends React.Component {
 const mapStateToProps = state => {
   return {
     term: state.movies.term,
-    page: state.movies.page
+    page: state.movies.page,
+    isLoggedIn: state.user.isLoggedIn
   };
 };
 
 export default connect(
   mapStateToProps,
-  { fetchMovies, getCarouselBackdrops }
+  { fetchMovies, getCarouselBackdrops, loadWatchlist }
 )(HomePage);

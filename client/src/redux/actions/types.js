@@ -7,3 +7,6 @@ export const REGISTER = 'REGISTER';
 export const SIGN_OUT = 'SIGN_OUT';
 export const LOGIN = 'LOGIN';
 export const LOAD_COOKIE = 'LOAD_COOKIE';
+export const ADD_TO_WATCHLIST = 'ADD_TO_WATCHLIST';
+export const DELETE_FROM_WATCHLIST = 'DELETE_FROM_WATCHLIST';
+export const LOAD_WATCHLIST = 'LOAD_WATCHLIST';

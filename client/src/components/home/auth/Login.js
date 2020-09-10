@@ -9,7 +9,7 @@ class Login extends Component {
   onSubmit = formProps => {
     this.props.login(formProps).then(() => {
       this.props.setVisible(false);
-      this.props.history.push(`/profile`);
+      this.props.history.push(`/watchlist`);
     });
   };
 

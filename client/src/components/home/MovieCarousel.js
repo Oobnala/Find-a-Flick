@@ -11,7 +11,12 @@ class MovieCarousel extends React.Component {
       const movieBackdrop = `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`;
       return (
         <div className='carousel-backdrop-container' key={index}>
-          <img alt='' src={movieBackdrop} style={{ width: '100%' }} />
+          <img
+            alt=''
+            className='movie-backdrop'
+            src={movieBackdrop}
+            style={{ width: '100%' }}
+          />
           <div className='carousel-movie-title-container'>
             <Title level={2} style={{ color: 'white' }}>
               {movie.title}

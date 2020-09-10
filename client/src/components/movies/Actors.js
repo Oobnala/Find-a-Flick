@@ -8,7 +8,7 @@ const { Meta } = Card;
 const { Title, Paragraph } = Typography;
 
 const renderCast = (cast, viewAll) => {
-  let viewTotal = 5;
+  let viewTotal = 6;
 
   if (viewAll) {
     viewTotal = cast.length;
