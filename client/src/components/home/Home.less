@@ -1,3 +1,6 @@
+@import (css)
+  url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
 /* Multiple component styles */
 .spin-container {
   display: flex;
@@ -12,8 +15,46 @@
   margin-bottom: 0px;
 }
 
+.side-menu-button {
+  display: none;
+  margin-top: 10px;
+}
+
+.drawer {
+  .ant-drawer-header {
+    background-color: #001529;
+    border-bottom: 1px solid #1da57a;
+    height: 64px;
+    padding: 5px 40px;
+    border-radius: 0px;
+  }
+
+  .ant-drawer-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(0, 21, 41, 0.5);
+    padding-top: 0px;
+  }
+}
+
+.side-menu-icon {
+  color: #1da57a;
+  font-size: 25px;
+}
+
 .nav-title {
   font-size: 25px;
+  font-family: 'Pacifico', cursive;
+}
+
+.auth-title {
+  text-align: center;
+  .ant-typography {
+    margin-bottom: 0;
+    color: #1da57a;
+    font-family: 'Pacifico', cursive;
+  }
 }
 
 .nav-about {
@@ -30,6 +71,11 @@
   .ant-modal-close {
     color: #1da57a;
   }
+}
+
+/* Login Form*/
+.auth-form-title {
+  text-align: center;
 }
 
 /* HomePage */
@@ -165,7 +211,7 @@
   bottom: 16px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 550px) {
   .movie-card-container {
     height: 100px;
     width: 150px;
@@ -174,5 +220,18 @@
 
   .poster {
     height: 250px;
+  }
+
+  .page-buttons {
+    display: flex;
+    flex-direction: column;
+  }
+  .nav-buttons {
+    display: none;
+  }
+
+  .side-menu-button {
+    display: inline;
+    margin-top: 10px;
   }
 }

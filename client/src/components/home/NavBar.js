@@ -5,7 +5,8 @@ import { signOut } from '../../redux/actions/userActions';
 import './Home.less';
 import Login from './auth/Login';
 import Register from './auth/Register';
-import { Layout, Button, Modal, Typography } from 'antd';
+import { Layout, Button, Modal, Typography, Drawer } from 'antd';
+import { MenuOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 const { Header } = Layout;
@@ -15,19 +16,16 @@ const NavBar = ({ isLoggedIn, signOut, history }) => {
   const [visible, setVisible] = useState(false);
   const [displayRegister, setDisplayRegister] = useState(false);
   const [registerSuccess, setRegisterSuccess] = useState(false);
+  const [showDrawer, setShowDrawer] = useState(false);
+
+  const setDrawer = () => {
+    setShowDrawer(!showDrawer);
+  };
 
   const renderTitle = () => {
     return (
-      <div>
-        {displayRegister ? (
-          <Title style={{ marginBottom: 0, color: '#1DA57A' }} level={2}>
-            Register an Account
-          </Title>
-        ) : (
-          <Title style={{ marginBottom: 0, color: '#1DA57A' }} level={2}>
-            Welcome back to Find-a-Flick!
-          </Title>
-        )}
+      <div className='auth-title'>
+        <Title level={2}>Find-a-Flick</Title>
       </div>
     );
   };
@@ -37,44 +35,28 @@ const NavBar = ({ isLoggedIn, signOut, history }) => {
     setDisplayRegister(false);
   };
 
-  return (
-    <Header>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between'
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row'
-          }}
-        >
-          <Link to='/'>
-            <Button className='nav-title' type='link'>
-              Find-a-Flick
-            </Button>
-          </Link>
-          {/* <div style={{ width: 70, height: 50 }}>
-            <img
-              alt=''
-              src='https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_1-5bdc75aaebeb75dc7ae79426ddd9be3b2be1e342510f8202baf6bffa71d7f5c4.svg'
-            />
-          </div> */}
-          <Link to='/about'>
+  const renderPageButtons = () => {
+    return (
+      <div className='page-buttons'>
+        <Link to='/about'>
+          <Button className='nav-about' type='link'>
+            About
+          </Button>
+        </Link>
+        {isLoggedIn && (
+          <Link to='/watchlist'>
             <Button className='nav-about' type='link'>
-              About
+              Watchlist
             </Button>
           </Link>
-          {isLoggedIn && (
-            <Link to='/watchlist'>
-              <Button className='nav-about' type='link'>
-                Watchlist
-              </Button>
-            </Link>
-          )}
-        </div>
+        )}
+      </div>
+    );
+  };
+
+  const renderAuthButtons = () => {
+    return (
+      <div>
         {isLoggedIn ? (
           <Button
             onClick={() => signOut()}
@@ -95,7 +77,38 @@ const NavBar = ({ isLoggedIn, signOut, history }) => {
             Log In
           </Button>
         )}
+      </div>
+    );
+  };
 
+  return (
+    <Header>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between'
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row'
+          }}
+        >
+          <Button
+            type='text'
+            className='side-menu-button'
+            onClick={setDrawer}
+            icon={<MenuOutlined className='side-menu-icon' />}
+          ></Button>
+          <Link to='/'>
+            <Button className='nav-title' type='link'>
+              Find-a-Flick
+            </Button>
+          </Link>
+          <div className='nav-buttons'>{renderPageButtons()}</div>
+        </div>
+        <div className='nav-buttons'>{renderAuthButtons()}</div>
         {displayRegister ? (
           <Modal
             className='auth-modal'
@@ -126,6 +139,24 @@ const NavBar = ({ isLoggedIn, signOut, history }) => {
             />
           </Modal>
         )}
+        <Drawer
+          className='drawer'
+          title={
+            <Link to='/'>
+              <Button className='nav-title' type='link'>
+                Find-a-Flick
+              </Button>
+            </Link>
+          }
+          placement='left'
+          closable={false}
+          onClose={setDrawer}
+          visible={showDrawer}
+          key='left'
+        >
+          {renderAuthButtons()}
+          {renderPageButtons()}
+        </Drawer>
       </div>
     </Header>
   );

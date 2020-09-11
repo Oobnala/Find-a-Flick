@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import '../Home.less';
 import { Form, Input, Button, Typography } from 'antd';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 
-const { Text } = Typography;
+const { Text, Title } = Typography;
 
 class LoginForm extends Component {
   renderInputItem = ({ input, label, meta }) => {
@@ -45,6 +46,9 @@ class LoginForm extends Component {
     const { setRegister } = this.props;
     return (
       <Form onFinish={this.props.handleSubmit(this.onSubmit)}>
+        <div className='auth-form-title'>
+          <Title level={3}>Welcome back!</Title>
+        </div>
         <Field name='email' component={this.renderInputItem} label='Email' />
         <Field
           name='password'
@@ -59,7 +63,7 @@ class LoginForm extends Component {
         </Form.Item>
         <Form.Item>
           <Button htmlType='submit' type='primary'>
-            Login
+            Log in
           </Button>
         </Form.Item>
       </Form>

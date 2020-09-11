@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { Form, Input, Button } from 'antd';
+import '../Home.less';
+import { Form, Input, Button, Typography } from 'antd';
 import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
+
+const { Title } = Typography;
 
 class RegisterForm extends Component {
   renderInputItem = ({ input, label, meta }) => {
@@ -49,6 +52,9 @@ class RegisterForm extends Component {
   render() {
     return (
       <Form onFinish={this.props.handleSubmit(this.onSubmit)}>
+        <div className='auth-form-title'>
+          <Title level={3}>Register an Account!</Title>
+        </div>
         <Field
           name='username'
           component={this.renderInputItem}
