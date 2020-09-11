@@ -71,14 +71,16 @@ const Actors = ({ castDetails }) => {
       {castDetails.length !== 0 ? (
         <div className='cast-details'>
           <div>
-            <Button
-              type='primary'
-              className='view-actors-button'
-              onClick={() => setViewAll(!viewAll)}
-            >
-              View All Actors
-              {viewAll ? <UpOutlined /> : <DownOutlined />}
-            </Button>
+            {castDetails.length >= 6 && (
+              <Button
+                type='primary'
+                className='view-actors-button'
+                onClick={() => setViewAll(!viewAll)}
+              >
+                View All Actors
+                {viewAll ? <UpOutlined /> : <DownOutlined />}
+              </Button>
+            )}
           </div>
           <div className='container-actorlist'>
             {renderCast(castDetails, viewAll)}

@@ -48,14 +48,16 @@ const Recommendations = ({ similarMovies }) => {
         </Divider>
       </div>
       <div className='view-all-button-container'>
-        <Button
-          className='view-all-recommendations-button'
-          type='primary'
-          onClick={() => setViewAll(!viewAll)}
-        >
-          View All Recommendations
-          {viewAll ? <UpOutlined /> : <DownOutlined />}
-        </Button>
+        {similarMovies.length !== 0 && (
+          <Button
+            className='view-all-recommendations-button'
+            type='primary'
+            onClick={() => setViewAll(!viewAll)}
+          >
+            View All Recommendations
+            {viewAll ? <UpOutlined /> : <DownOutlined />}
+          </Button>
+        )}
       </div>
       <div className='recommendation-list'>
         <List

@@ -1,4 +1,4 @@
-import db from '../../apis/db';
+import server from '../../apis/server';
 import cookie from 'react-cookies';
 import {
   REGISTER,
@@ -12,7 +12,8 @@ import {
 
 export const register = formProps => async dispatch => {
   console.log('Register action called');
-  db.post('user/register', formProps)
+  server
+    .post('user/register', formProps)
     .then(res => {
       if (res.data.valid) {
         dispatch({ type: REGISTER, payload: res.data });
@@ -23,7 +24,8 @@ export const register = formProps => async dispatch => {
 
 export const login = formProps => async dispatch => {
   console.log('login action called');
-  db.post('user/login', formProps)
+  server
+    .post('user/login', formProps)
     .then(res => {
       if (res.data.valid) {
         const watchlist = JSON.parse(
