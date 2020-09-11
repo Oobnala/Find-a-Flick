@@ -35,7 +35,7 @@ const renderCast = (cast, viewAll) => {
           <Meta
             className='meta'
             title={
-              <div className='title-container'>
+              <div>
                 <Paragraph className='title' level={4}>
                   {member.name}
                 </Paragraph>
