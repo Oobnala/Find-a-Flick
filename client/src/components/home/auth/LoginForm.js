@@ -2,16 +2,26 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import '../Home.less';
-import { Form, Input, Button, Typography } from 'antd';
+import { Form, Input, Button, Typography, Alert } from 'antd';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 
 const { Text, Title } = Typography;
 
 class LoginForm extends Component {
+  renderError({ error, touched }) {
+    if (touched && error) {
+      return (
+        <div className='alert-validation'>
+          {<Text type='danger'>{error}</Text>}
+        </div>
+      );
+    }
+  }
+
   renderInputItem = ({ input, label, meta }) => {
     return (
       <div>
-        <Form.Item name={input.name} rules={[{ required: true }]}>
+        <Form.Item>
           {input.name === 'password' ? (
             <Input.Password
               {...input}
@@ -29,6 +39,7 @@ class LoginForm extends Component {
               prefix={<MailOutlined />}
             />
           )}
+          {this.renderError(meta)}
         </Form.Item>
       </div>
     );
@@ -49,6 +60,11 @@ class LoginForm extends Component {
         <div className='auth-form-title'>
           <Title level={3}>Welcome back!</Title>
         </div>
+        {this.props.authStatus.valid === false && (
+          <div className='alert-validation'>
+            {<Alert message={this.props.authStatus.message} type='error' />}
+          </div>
+        )}
         <Field name='email' component={this.renderInputItem} label='Email' />
         <Field
           name='password'
@@ -71,9 +87,21 @@ class LoginForm extends Component {
   }
 }
 
-LoginForm = connect(
-  null,
-  {}
-)(LoginForm);
+const validate = formVal => {
+  const errors = {};
+  if (!formVal.email) {
+    errors.email = 'You must enter an email';
+  }
+  if (!formVal.password) {
+    errors.password = 'You must enter a password';
+  }
+  return errors;
+};
 
-export default reduxForm({ form: 'loginForm' })(LoginForm);
+const mapStateToProps = state => ({
+  authStatus: state.user.authStatus
+});
+
+LoginForm = connect(mapStateToProps)(LoginForm);
+
+export default reduxForm({ form: 'loginForm', validate })(LoginForm);

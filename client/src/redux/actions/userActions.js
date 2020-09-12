@@ -7,41 +7,38 @@ import {
   LOAD_COOKIE,
   ADD_TO_WATCHLIST,
   DELETE_FROM_WATCHLIST,
-  LOAD_WATCHLIST
+  LOAD_WATCHLIST,
+  SET_AUTH_STATUS
 } from '../actions/types';
 
 export const register = formProps => async dispatch => {
-  console.log('Register action called');
-  server
-    .post('user/register', formProps)
-    .then(res => {
-      if (res.data.valid) {
-        dispatch({ type: REGISTER, payload: res.data });
-      }
-    })
-    .catch(err => console.log(err));
+  const response = await server.post('user/register', formProps);
+  if (response.data.valid) {
+    dispatch({ type: REGISTER, payload: response.data });
+  } else {
+    dispatch({ type: SET_AUTH_STATUS, payload: response.data });
+  }
 };
 
 export const login = formProps => async dispatch => {
-  console.log('login action called');
-  server
-    .post('user/login', formProps)
-    .then(res => {
-      if (res.data.valid) {
-        const watchlist = JSON.parse(
-          localStorage.getItem(`watchlist_${res.data.userId}`)
-        );
+  const response = await server.post('user/login', formProps);
 
-        const user = {
-          userId: res.data.userId,
-          watchlist: watchlist
-        };
+  if (response.data.valid) {
+    const watchlist = JSON.parse(
+      localStorage.getItem(`watchlist_${response.data.userId}`)
+    );
 
-        dispatch({ type: LOGIN, payload: user });
-        cookie.save('userId', res.data.userId, { path: '/' });
-      }
-    })
-    .catch(err => console.log(err));
+    const user = {
+      valid: response.data.valid,
+      userId: response.data.userId,
+      watchlist: watchlist
+    };
+
+    dispatch({ type: LOGIN, payload: user });
+    cookie.save('userId', response.data.userId, { path: '/' });
+  } else {
+    dispatch({ type: SET_AUTH_STATUS, payload: response.data });
+  }
 };
 
 export const signOut = () => async dispatch => {
@@ -51,7 +48,6 @@ export const signOut = () => async dispatch => {
 
 export const loadCookie = () => async dispatch => {
   if (cookie.load('userId')) {
-    console.log('Cookie action called and loaded');
     dispatch({ type: LOAD_COOKIE, payload: cookie.load('userId') });
   }
 };
@@ -72,7 +68,6 @@ export const addToWatchlist = (id, poster_path, title) => (
   dispatch,
   getState
 ) => {
-  console.log('Add to Watchlist action called');
   let watchlist = JSON.parse(
     localStorage.getItem(`watchlist_${getState().user.userId}`)
   );
@@ -105,14 +100,12 @@ export const addToWatchlist = (id, poster_path, title) => (
 };
 
 export const deleteFromWatchlist = movieId => (dispatch, getState) => {
-  console.log('delete from watchlist hit');
   let watchlist = JSON.parse(
     localStorage.getItem(`watchlist_${getState().user.userId}`)
   );
 
   if (watchlist !== null) {
     let index = watchlist.findIndex(movie => movie.key === movieId, 1);
-    console.log(index);
     if (index > -1) {
       watchlist.splice(index, 1);
       localStorage.setItem(

@@ -8,8 +8,9 @@ import LoginForm from './LoginForm';
 class Login extends Component {
   onSubmit = formProps => {
     this.props.login(formProps).then(() => {
-      this.props.setVisible(false);
-      this.props.history.push(`/watchlist`);
+      if (this.props.authStatus.valid) {
+        this.props.setVisible(false);
+      }
     });
   };
 
@@ -34,7 +35,8 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-  userId: state.user.userId
+  userId: state.user.userId,
+  authStatus: state.user.authStatus
 });
 
 export default connect(

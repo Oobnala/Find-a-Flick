@@ -8,7 +8,6 @@ import {
 } from './types';
 
 export const fetchMovies = (term, page) => async dispatch => {
-  console.log('fetchMovies action called');
   const data = {
     term: term,
     page: page
@@ -23,13 +22,11 @@ export const fetchMovies = (term, page) => async dispatch => {
 };
 
 export const getCarouselBackdrops = () => async dispatch => {
-  console.log('getCarouselBackdrops action called');
   const response = await server.get('tmdb/getCarouselBackdrops');
   dispatch({ type: GET_CAROUSEL_BACKDROPS, payload: response.data });
 };
 
 export const getMovieDetails = movieId => async dispatch => {
-  console.log('getMovieDetails action called');
   const data = {
     movieId: movieId
   };
@@ -38,6 +35,5 @@ export const getMovieDetails = movieId => async dispatch => {
 };
 
 export const clearMovieDetails = () => async dispatch => {
-  console.log('clearMovieDetails action called');
   dispatch({ type: CLEAR_MOVIE_DETAILS });
 };

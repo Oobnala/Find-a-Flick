@@ -13,7 +13,7 @@ exports.register = async (req, res) => {
   });
 
   if (existEmail.length != 0 || existUsername != 0) {
-    res.send({ valid: false, message: 'User already exists' });
+    res.send({ valid: false, message: 'Email or username taken' });
   } else {
     bcrypt.hash(req.body.password, saltRounds, async (err, hash) => {
       const user = new User({

@@ -5,7 +5,12 @@ import RegisterForm from './RegisterForm';
 
 class Register extends Component {
   onSubmit = formProps => {
-    this.props.register(formProps);
+    this.props.register(formProps).then(() => {
+      if (this.props.authStatus.valid) {
+        this.props.setRegister(false);
+        this.props.setRegisterSuccess(true);
+      }
+    });
   };
 
   render() {
@@ -21,7 +26,11 @@ class Register extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  authStatus: state.user.authStatus
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { register }
 )(Register);

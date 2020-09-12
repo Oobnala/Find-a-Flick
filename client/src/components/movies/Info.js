@@ -23,7 +23,6 @@ class Info extends React.Component {
 
   load = () => {
     if (this.props.isLoggedIn) {
-      console.log('load');
       this.props.loadWatchlist().then(() => {
         this.checkWatchlist(this.props.movieDetails.id);
       });

@@ -2,16 +2,26 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import '../Home.less';
-import { Form, Input, Button, Typography } from 'antd';
+import { Form, Input, Button, Typography, Alert } from 'antd';
 import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 class RegisterForm extends Component {
+  renderError({ error, touched }) {
+    if (touched && error) {
+      return (
+        <div className='alert-validation'>
+          {<Text type='danger'>{error}</Text>}
+        </div>
+      );
+    }
+  }
+
   renderInputItem = ({ input, label, meta }) => {
     return (
       <div>
-        <Form.Item name={input.name} rules={[{ required: true }]}>
+        <Form.Item>
           {input.name === 'password' ? (
             <Input.Password
               {...input}
@@ -34,6 +44,7 @@ class RegisterForm extends Component {
               prefix={<MailOutlined />}
             />
           )}
+          {this.renderError(meta)}
         </Form.Item>
       </div>
     );
@@ -41,8 +52,6 @@ class RegisterForm extends Component {
 
   onSubmit = formProps => {
     this.props.onSubmit(formProps);
-    this.props.setRegister(false);
-    this.props.setRegisterSuccess(true);
   };
 
   onSubmitFailed = errorInfo => {
@@ -55,6 +64,11 @@ class RegisterForm extends Component {
         <div className='auth-form-title'>
           <Title level={3}>Register an Account!</Title>
         </div>
+        {this.props.authStatus.valid === false && (
+          <div className='alert-validation'>
+            {<Alert message={this.props.authStatus.message} type='error' />}
+          </div>
+        )}
         <Field
           name='username'
           component={this.renderInputItem}
@@ -67,6 +81,12 @@ class RegisterForm extends Component {
           label='Password'
         />
         <Form.Item>
+          <Text>Already have an account?</Text>
+          <Button type='link' onClick={() => this.props.setRegister(false)}>
+            Log In
+          </Button>
+        </Form.Item>
+        <Form.Item>
           <Button htmlType='submit' type='primary'>
             Register
           </Button>
@@ -76,6 +96,28 @@ class RegisterForm extends Component {
   }
 }
 
-RegisterForm = connect(null)(RegisterForm);
+const validate = formVal => {
+  const errors = {};
+  if (!formVal.username) {
+    errors.username = 'You must enter a username';
+  }
+  if (!formVal.email) {
+    errors.email = 'You must enter an email';
+  }
+  if (!formVal.password) {
+    errors.password = 'You must enter a password';
+  }
+  if (formVal.password && formVal.password.length < 10) {
+    errors.password =
+      'You must enter a password that is at least 10 characters long.';
+  }
+  return errors;
+};
 
-export default reduxForm({ form: 'registerForm' })(RegisterForm);
+const mapStateToProps = state => ({
+  authStatus: state.user.authStatus
+});
+
+RegisterForm = connect(mapStateToProps)(RegisterForm);
+
+export default reduxForm({ form: 'registerForm', validate })(RegisterForm);

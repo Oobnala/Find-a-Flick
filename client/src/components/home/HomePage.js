@@ -12,7 +12,6 @@ class HomePage extends React.Component {
   state = { isLoaded: false };
 
   componentDidMount() {
-    console.log('RENDER HOMEPAGE');
     this.props.getCarouselBackdrops();
     this.props.fetchMovies(this.props.term, this.props.page).then(() => {
       this.setState({
