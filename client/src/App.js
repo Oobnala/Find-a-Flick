@@ -10,7 +10,7 @@ import MovieDetails from './components/movies/MovieDetails';
 import UserProfile from './components/user/UserProfile';
 import About from './components/home/About';
 import ScrollToTop from './ScrollToTop';
-import { Layout, Typography, Button } from 'antd';
+import { Layout, Typography } from 'antd';
 import { GithubOutlined } from '@ant-design/icons';
 
 const { Footer } = Layout;
