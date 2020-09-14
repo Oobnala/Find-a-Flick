@@ -22,7 +22,7 @@ Find-a-Flick is a web application for users to search for movies, create a watch
 - User can add movies to their watchlist if they have an account
 - User can go to an individual movie page that displays movie details, cast information, and movie recommendations
 
-# Future Funtional Requirements
+# Future Functional Requirements
 
 - User can use a forum to discuss or review movies
 - User can create a post for movie recommendations from other users
