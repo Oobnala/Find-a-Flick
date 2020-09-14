@@ -31,6 +31,9 @@ Find-a-Flick is a web application for users to search for movies, create a watch
 
 - Home
   ![](homepage.gif)
+  
+- About
+  ![](about.gif)
 
 - Search
   ![](search.gif)
